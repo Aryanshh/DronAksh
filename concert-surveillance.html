@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concert Surveillance - DRONAKSH</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a237e;
+            --secondary: #00acc1;
+            --accent: #ff5722;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --success: #10b981;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .container {
+            max-width: 100%;
+            height: 100vh;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            margin-bottom: 0.5rem;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .event-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .event-meta {
+            display: flex;
+            gap: 1.5rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .main-content {
+            display: flex;
+            flex: 1;
+            gap: 1rem;
+            overflow: hidden;
+        }
+        
+        /* Video Feed Section */
+        .video-container {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .video-feed {
+            flex: 1;
+            background-color: #000;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            min-height: 0; /* Fix for flexbox overflow */
+        }
+        
+        .video-feed video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            padding: 0.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .video-controls button {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Alerts Section */
+        .alerts-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-width: 350px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .alert-tabs {
+            display: flex;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0 1rem;
+        }
+        
+        .alert-tab {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            font-size: 0.9rem;
+        }
+        
+        .alert-tab.active {
+            border-bottom-color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .alerts-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 1rem;
+        }
+        
+        .alert-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 0.75rem 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .alert-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .alert-title {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+        
+        .alert-time {
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+        
+        .alert-critical {
+            border-left: 4px solid var(--danger);
+        }
+        
+        .alert-warning {
+            border-left: 4px solid var(--warning);
+        }
+        
+        .alert-info {
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .alert-desc {
+            color: var(--dark);
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+        }
+        
+        .alert-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+        
+        .btn {
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.25rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: white;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        
+        .btn-safe {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        /* Overlay Controls */
+        .overlay-section {
+            margin-top: 0.5rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 0 0 8px 8px;
+        }
+        
+        .overlay-title {
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+        
+        .overlay-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        
+        .overlay-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: white;
+            border-radius: 0.25rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        
+        .overlay-toggle.active {
+            background-color: #e0f2fe;
+            border: 1px solid var(--secondary);
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 36px;
+            height: 18px;
+            background: #cbd5e1;
+            border-radius: 9px;
+            margin-left: auto;
+        }
+        
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: all 0.3s;
+        }
+        
+        .overlay-toggle.active .toggle-switch {
+            background: var(--secondary);
+        }
+        
+        .overlay-toggle.active .toggle-switch::after {
+            left: 20px;
+        }
+        
+        @media (max-width: 1200px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .video-container,
+            .alerts-container {
+                min-width: 100%;
+            }
+            
+            .alerts-container {
+                max-height: 40vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">DRONAKSH</div>
+            <div class="event-meta">
+                <div><strong>Camera ID:</strong> DE-003</div>
+                <div>2024-01-20 14:30:45</div>
+            </div>
+            <div>
+                <i class="fas fa-user-circle" style="font-size: 1.5rem;"></i>
+            </div>
+        </header>
+        
+        <h1 class="event-title">Open Concert</h1>
+        
+        <div class="main-content">
+            <!-- Video Feed Section -->
+            <div class="video-container">
+                <div class="video-feed">
+                    <video autoplay muted loop>
+                        <source src="https://assets.mixkit.co/videos/preview/mixkit-audience-at-a-music-concert-2543-large.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-controls">
+                        <button title="Play/Pause"><i class="fas fa-pause"></i></button>
+                        <button title="Fullscreen"><i class="fas fa-expand"></i></button>
+                        <button title="Record"><i class="fas fa-circle"></i></button>
+                    </div>
+                </div>
+                
+                <!-- Detection Overlays -->
+                <div class="overlay-section">
+                    <h3 class="overlay-title">Detection Overlays</h3>
+                    <div class="overlay-grid">
+                        <div class="overlay-toggle" data-overlay="crowd">
+                            <i class="fas fa-users"></i>
+                            <span>Crowd Density</span>
+                            <div class="toggle-switch"></div>
+                        </div>
+                        
+                        <div class="overlay-toggle" data-overlay="smoke">
+                            <i class="fas fa-smog"></i>
+                            <span>Smoke Detection</span>
+                            <div class="toggle-switch"></div>
+                        </div>
+                        
+                        <div class="overlay-toggle" data-overlay="weapons">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Weapon Detection</span>
+                            <div class="toggle-switch"></div>
+                        </div>
+                        
+                        <div class="overlay-toggle" data-overlay="fights">
+                            <i class="fas fa-fist-raised"></i>
+                            <span>Fight Detection</span>
+                            <div class="toggle-switch"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Alerts Section -->
+            <div class="alerts-container">
+                <div class="alert-tabs">
+                    <div class="alert-tab active">All</div>
+                    <div class="alert-tab">Critical</div>
+                    <div class="alert-tab">Warning</div>
+                    <div class="alert-tab">Info</div>
+                </div>
+                
+                <div class="alerts-list">
+                    <!-- High Crowd Density Alert -->
+                    <div class="alert-card alert-warning">
+                        <div class="alert-header">
+                            <div class="alert-title">High Crowd Density Detected</div>
+                            <div class="alert-time">2 minutes ago</div>
+                        </div>
+                        <div class="alert-desc">Unusual crowd formation detected at North entrance</div>
+                        <div class="alert-actions">
+                            <button class="btn btn-primary">Notify Staff</button>
+                            <button class="btn btn-secondary">View</button>
+                            <button class="btn btn-safe">Safe</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Smoke Detection Alert -->
+                    <div class="alert-card alert-critical">
+                        <div class="alert-header">
+                            <div class="alert-title">Smoke Detection Alert</div>
+                            <div class="alert-time">5 minutes ago</div>
+                        </div>
+                        <div class="alert-desc">Possible smoke detected in East wing</div>
+                        <div class="alert-actions">
+                            <button class="btn btn-primary">Notify Staff</button>
+                            <button class="btn btn-secondary">View</button>
+                            <button class="btn btn-safe">Safe</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Security Alert -->
+                    <div class="alert-card alert-critical">
+                        <div class="alert-header">
+                            <div class="alert-title">Security Alert</div>
+                            <div class="alert-time">10 minutes ago</div>
+                        </div>
+                        <div class="alert-desc">Suspicious activity detected near ATM zone</div>
+                        <div class="alert-actions">
+                            <button class="btn btn-primary">Notify Staff</button>
+                            <button class="btn btn-secondary">View</button>
+                            <button class="btn btn-safe">Safe</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Additional alerts can be added here -->
+                    <div class="alert-card alert-info">
+                        <div class="alert-header">
+                            <div class="alert-title">Camera Movement Detected</div>
+                            <div class="alert-time">15 minutes ago</div>
+                        </div>
+                        <div class="alert-desc">Stage camera #2 has been repositioned</div>
+                        <div class="alert-actions">
+                            <button class="btn btn-secondary">View</button>
+                            <button class="btn btn-safe">Acknowledged</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        const tabs = document.querySelectorAll('.alert-tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                // Filter alerts based on the selected tab
+                const alerts = document.querySelectorAll('.alert-card');
+                alerts.forEach(alert => {
+                    if (tab.textContent === 'All' || 
+                        (tab.textContent === 'Critical' && alert.classList.contains('alert-critical')) ||
+                        (tab.textContent === 'Warning' && alert.classList.contains('alert-warning')) ||
+                        (tab.textContent === 'Info' && alert.classList.contains('alert-info'))) {
+                        alert.style.display = 'block';
+                    } else {
+                        alert.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Button actions
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (btn.textContent === 'Notify Staff') {
+                    alert('Staff has been notified about this alert');
+                } else if (btn.textContent === 'View') {
+                    alert('Showing detailed view of this alert');
+                } else if (btn.textContent === 'Safe' || btn.textContent === 'Acknowledged') {
+                    const card = btn.closest('.alert-card');
+                    card.style.opacity = '0.6';
+                    btn.textContent = btn.textContent.includes('Safe') ? 'Marked Safe' : 'Acknowledged';
+                    btn.style.backgroundColor = '#d1fae5';
+                    btn.style.border = 'none';
+                    // Move to bottom of list after 1 second
+                    setTimeout(() => {
+                        card.parentNode.appendChild(card);
+                    }, 1000);
+                }
+            });
+        });
+        
+        // Video controls
+        const video = document.querySelector('video');
+        const videoControls = document.querySelectorAll('.video-controls button');
+        
+        videoControls[0].addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+                videoControls[0].innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                video.pause();
+                videoControls[0].innerHTML = '<i class="fas fa-play"></i>';
+            }
+        });
+        
+        videoControls[1].addEventListener('click', () => {
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            }
+        });
+        
+        // Overlay toggles
+        document.querySelectorAll('.overlay-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                const overlayType = this.getAttribute('data-overlay');
+                console.log(`${overlayType} overlay ${this.classList.contains('active') ? 'enabled' : 'disabled'}`);
+                // Here you would actually toggle the overlay on the video feed
+            });
+        });
+    </script>
+</body>
+</html>

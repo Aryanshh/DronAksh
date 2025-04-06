@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRONAKSH - AI Drone Surveillance</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Add this style for the drone illustration */
+        .drone-illustration {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">DRONAKSH</a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#monitoring">Services</a>
+                <a href="#contact">Contact</a>
+                <a href="#" class="btn btn-outline">Login</a>
+            </div>
+            <button class="hamburger">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Drone Illustration -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Intelligent Drone Surveillance</h1>
+                <p class="subtitle">Advanced AI-powered security for your critical spaces</p>
+                <p>Monitor and secure large areas with our cutting-edge drone technology. Get real-time alerts and automated responses.</p>
+                <div class="cta-buttons">
+                    <a href="#monitoring" class="btn btn-primary">Start Monitoring</a>
+                    <a href="#features" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <!-- SVG Drone Illustration -->
+                <svg class="drone-illustration" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Signal Waves -->
+                    <circle cx="250" cy="250" r="120" stroke="#00acc1" stroke-width="2" stroke-dasharray="5,5" fill="none" opacity="0.2"/>
+                    <circle cx="250" cy="250" r="90" stroke="#00acc1" stroke-width="2" stroke-dasharray="5,5" fill="none" opacity="0.4"/>
+                    <circle cx="250" cy="250" r="60" stroke="#00acc1" stroke-width="2" stroke-dasharray="5,5" fill="none" opacity="0.6"/>
+                    
+                    <!-- Drone Body -->
+                    <rect x="200" y="230" width="100" height="40" rx="5" fill="#1a237e"/>
+                    
+                    <!-- Central Hub -->
+                    <circle cx="250" cy="250" r="30" fill="#00acc1"/>
+                    
+                    <!-- Camera -->
+                    <circle cx="250" cy="240" r="8" fill="#ff5722"/>
+                    
+                    <!-- Arms -->
+                    <rect x="170" y="240" width="30" height="5" rx="2.5" fill="#1a237e"/>
+                    <rect x="300" y="240" width="30" height="5" rx="2.5" fill="#1a237e"/>
+                    <rect x="245" y="170" width="5" height="30" rx="2.5" fill="#1a237e"/>
+                    <rect x="245" y="300" width="5" height="30" rx="2.5" fill="#1a237e"/>
+                    
+                    <!-- Propellers -->
+                    <circle cx="170" cy="240" r="15" stroke="#1a237e" stroke-width="3" fill="none"/>
+                    <circle cx="330" cy="240" r="15" stroke="#1a237e" stroke-width="3" fill="none"/>
+                    <circle cx="250" cy="170" r="15" stroke="#1a237e" stroke-width="3" fill="none"/>
+                    <circle cx="250" cy="330" r="15" stroke="#1a237e" stroke-width="3" fill="none"/>
+                    
+                    <!-- Propeller Blades -->
+                    <path d="M170 225L160 225" stroke="#1a237e" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M170 255L160 255" stroke="#1a237e" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M185 240L195 240" stroke="#1a237e" stroke-width="3" stroke-linecap="round"/>
+                    
+                    <path d="M330 225L340 225" stroke="#1a237e" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M330 255L340 255" stroke="#1a237e" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M315 240L305 240" stroke="#1a237e" stroke-width="3" stroke-linecap="round"/>
+                    
+                    <path d="M250 155L250 145" stroke="#1a237e" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M250 185L250 195" stroke="#1a237e" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M235 170L225 170" stroke="#1a237e" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M265 170L275 170" stroke="#1a237e" stroke-width="3" stroke-linecap="round"/>
+                    
+                    <path d="M250 315L250 305" stroke="#1a237e" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M250 345L250 355" stroke="#1a237e" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M235 330L225 330" stroke="#1a237e" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M265 330L275 330" stroke="#1a237e" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Monitoring Areas -->
+    <section id="monitoring" class="monitoring">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Monitoring Solutions</h2>
+                <p>Customized surveillance for every scenario</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <h3>Stadium Security</h3>
+                    <p>Comprehensive crowd monitoring and threat detection for sports venues</p>
+                    <a href="#" class="service-link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3>Concert Surveillance</h3>
+                    <p>Real-time monitoring for large-scale music events and festivals</p>
+                    <a href="concert-surveillance.html" class="service-link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Public Gatherings</h3>
+                    <p>Advanced crowd analytics for public events and demonstrations</p>
+                    <a href="#" class="service-link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3>Custom Solutions</h3>
+                    <p>Tailored surveillance for your specific location requirements</p>
+                    <a href="#" class="service-link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="features-content">
+                <div class="section-header">
+                    <span class="section-label">Technology</span>
+                    <h2>Advanced Security Features</h2>
+                    <p>Our AI-powered platform delivers unmatched surveillance capabilities</p>
+                </div>
+                
+                <div class="features-list">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Real-time Monitoring</h3>
+                            <p>24/7 surveillance with high-definition live video feeds and instant anomaly alerts</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h3>AI Threat Detection</h3>
+                            <p>Advanced machine learning algorithms identify potential threats with 98% accuracy</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Automated Response</h3>
+                            <p>Immediate deployment of countermeasures when threats are detected</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="features-image">
+                <img src="images/ai-dashboard.png" alt="AI monitoring dashboard">
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Secure Your Space?</h2>
+                <p>Get in touch with our security experts for a customized solution</p>
+                <a href="#contact" class="btn btn-primary btn-large">Request Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>DRONAKSH</h3>
+                    <p>Advanced drone surveillance solutions powered by artificial intelligence.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Stadium Security</a></li>
+                        <li><a href="#">Event Monitoring</a></li>
+                        <li><a href="#">Custom Solutions</a></li>
+                        <li><a href="#">API Integration</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Security Ave, Tech City</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@dronaksh.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2024 DRONAKSH Technologies. All rights reserved.</p>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
