@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard</title>
+    <style>
+        /* Navigation Styles */
+        nav {
+            background-color: #333;
+            padding: 15px 0;
+            margin-bottom: 20px;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-links li {
+            margin-left: 20px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #4CAF50;
+        }
+        
+        /* Dashboard Styles */
+        .dashboard {
+            display: none; /* Initially hidden */
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .large-number {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .chart-placeholder {
+            height: 150px;
+            background-color: #f0f0f0;
+            margin: 15px 0;
+            position: relative;
+        }
+        
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #777;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .stat-item {
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #777;
+        }
+        
+        .stat-value {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: #4CAF50;
+            width: 94%;
+        }
+        
+        .incident-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .incident-item {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .footer {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #777;
+            margin-top: 10px;
+        }
+        
+        .export-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        /* Home content styles */
+        .home-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        /* Active state for navigation */
+        .nav-links a.active {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Analytics Platform</a>
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link" data-page="home">Home</a></li>
+                <li><a href="#" class="nav-link" data-page="dashboard">Services</a></li>
+                <li><a href="#" class="nav-link" data-page="about">About</a></li>
+                <li><a href="#" class="nav-link" data-page="contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Home Content (shown by default) -->
+    <div id="home" class="page-content">
+        <div class="home-content">
+            <h1>Welcome to Analytics Platform</h1>
+            <p>Click on "Services" in the navigation bar to view the analytics dashboard.</p>
+        </div>
+    </div>
+    
+    <!-- Dashboard Content (hidden by default) -->
+    <div id="dashboard" class="page-content dashboard">
+        <div class="card">
+            <div class="card-header">People-Directed Today</div>
+            <div class="large-number">2,847</div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">Total incidents</div>
+            <div class="large-number">127</div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">Instruction Rate</div>
+            <div class="large-number">94%</div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+        
+        <div class="card" style="grid-column: span 2;">
+            <div class="card-header">Attris Over Time <span style="float: right; font-weight: normal;">Last 30 days</span></div>
+            <div class="chart-placeholder">
+                <!-- Chart would go here -->
+            </div>
+            <div class="chart-labels">
+                <span>01/01</span>
+                <span>01/02</span>
+                <span>01/03</span>
+                <span>01/04</span>
+                <span>01/05</span>
+                <span>01/06</span>
+                <span>01/07</span>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">Quick Statistics</div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-label">Average Response Time</div>
+                    <div class="stat-value">4.2 min</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Peak Hours</div>
+                    <div class="stat-value">9AM - 4PM</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Busiest Day</div>
+                    <div class="stat-value">Wednesday</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Active Sensors</div>
+                    <div class="stat-value">24/24</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">Crowd Density Patterns <span style="float: right; font-weight: normal;">By hour and day</span></div>
+            <div class="chart-placeholder" style="height: 200px;">
+                <!-- Chart would go here -->
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">Incident Distribution</div>
+            <ul class="incident-list">
+                <li class="incident-item">- Security Breaches (35%)</li>
+                <li class="incident-item">- Unauthorized Access (25%)</li>
+                <li class="incident-item">- Suspicious Activity (20%)</li>
+                <li class="incident-item">- Equipment Failure (15%)</li>
+                <li class="incident-item">- Others (5%)</li>
+            </ul>
+        </div>
+        
+        <div class="footer">
+            <div>Last updated: 2 minutes ago</div>
+            <button class="export-btn">Export Report</button>
+        </div>
+    </div>
+    
+    <!-- Other page content sections would go here -->
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all navigation links
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pageContents = document.querySelectorAll('.page-content');
+            
+            // Show home page by default
+            document.getElementById('home').style.display = 'block';
+            
+            // Add click event listeners to navigation links
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links
+                    navLinks.forEach(navLink => {
+                        navLink.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Hide all page contents
+                    pageContents.forEach(content => {
+                        content.style.display = 'none';
+                    });
+                    
+                    // Show the selected page
+                    const pageId = this.getAttribute('data-page');
+                    document.getElementById(pageId).style.display = pageId === 'dashboard' ? 'grid' : 'block';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

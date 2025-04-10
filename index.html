@@ -22,6 +22,131 @@
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-15px); }
         }
+
+        /* Analytics Dashboard Styles */
+        .dashboard {
+            display: none;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .card-header {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .large-number {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .chart-placeholder {
+            height: 150px;
+            background-color: #f0f0f0;
+            margin: 15px 0;
+            position: relative;
+            border-radius: 4px;
+        }
+        
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #777;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .stat-item {
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #777;
+        }
+        
+        .stat-value {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: #4CAF50;
+            width: 94%;
+        }
+        
+        .incident-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .incident-item {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .dashboard-footer {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #777;
+            margin-top: 10px;
+        }
+        
+        .export-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* Hide sections when dashboard is active */
+        body.show-dashboard .hero,
+        body.show-dashboard .monitoring,
+        body.show-dashboard .features,
+        body.show-dashboard .cta-section,
+        body.show-dashboard .footer {
+            display: none;
+        }
+
+        /* Show dashboard when active */
+        body.show-dashboard .dashboard {
+            display: grid;
+        }
     </style>
 </head>
 <body>
@@ -31,7 +156,7 @@
             <a href="#" class="logo">DRONAKSH</a>
             <div class="nav-links">
                 <a href="#features">Features</a>
-                <a href="#monitoring">Services</a>
+                <a href="#" id="services-link">Services</a>
                 <a href="#contact">Contact</a>
                 <a href="#" class="btn btn-outline">Login</a>
             </div>
@@ -40,6 +165,88 @@
             </button>
         </div>
     </nav>
+
+    <!-- Analytics Dashboard (hidden by default) -->
+    <div class="dashboard">
+        <div class="card">
+            <div class="card-header">People-Directed Today</div>
+            <div class="large-number">2,847</div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">Total incidents</div>
+            <div class="large-number">127</div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">Instruction Rate</div>
+            <div class="large-number">94%</div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+        
+        <div class="card" style="grid-column: span 2;">
+            <div class="card-header">Attris Over Time <span style="float: right; font-weight: normal;">Last 30 days</span></div>
+            <div class="chart-placeholder">
+                <!-- Chart would go here -->
+            </div>
+            <div class="chart-labels">
+                <span>01/01</span>
+                <span>01/02</span>
+                <span>01/03</span>
+                <span>01/04</span>
+                <span>01/05</span>
+                <span>01/06</span>
+                <span>01/07</span>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">Quick Statistics</div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-label">Average Response Time</div>
+                    <div class="stat-value">4.2 min</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Peak Hours</div>
+                    <div class="stat-value">9AM - 4PM</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Busiest Day</div>
+                    <div class="stat-value">Wednesday</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Active Sensors</div>
+                    <div class="stat-value">24/24</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">Crowd Density Patterns <span style="float: right; font-weight: normal;">By hour and day</span></div>
+            <div class="chart-placeholder" style="height: 200px;">
+                <!-- Chart would go here -->
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">Incident Distribution</div>
+            <ul class="incident-list">
+                <li class="incident-item">- Security Breaches (35%)</li>
+                <li class="incident-item">- Unauthorized Access (25%)</li>
+                <li class="incident-item">- Suspicious Activity (20%)</li>
+                <li class="incident-item">- Equipment Failure (15%)</li>
+                <li class="incident-item">- Others (5%)</li>
+            </ul>
+        </div>
+        
+        <div class="dashboard-footer">
+            <div>Last updated: 2 minutes ago</div>
+            <button class="export-btn">Export Report</button>
+        </div>
+    </div>
 
     <!-- Hero Section with Drone Illustration -->
     <section class="hero">
@@ -267,5 +474,34 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script>
+        // Handle Services link click to show dashboard
+        document.getElementById('services-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.body.classList.toggle('show-dashboard');
+            
+            // Update navigation active states
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            this.classList.add('active');
+            
+            // Scroll to top when showing dashboard
+            if (document.body.classList.contains('show-dashboard')) {
+                window.scrollTo(0, 0);
+            }
+        });
+        
+        // Close dashboard when clicking logo
+        document.querySelector('.navbar .logo').addEventListener('click', function(e) {
+            if (document.body.classList.contains('show-dashboard')) {
+                e.preventDefault();
+                document.body.classList.remove('show-dashboard');
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.classList.remove('active');
+                });
+            }
+        });
+    </script>
 </body>
 </html>
